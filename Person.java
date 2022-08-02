@@ -1,16 +1,17 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class Person {
-    public String firstName;
-    public String lastName;
-    public String fullName;
-    public int age;
-    public double height;
-    public double weight;
-    public double bmi;
+    private String firstName;
+    private String lastName;
+    private String fullName;
+    private int age;
+    private double height;
+    private double weight;
+    private double bmi;
 
-    public int maxAge;
-    public int totalAge;
+    private int maxAge;
+    private int totalAge;
 
     public void numberPerson() {
         Scanner scanner = new Scanner(System.in);
@@ -21,9 +22,9 @@ public class Person {
             informationInput();
             printData();
         }
-        System.out.println("最高年齢は" + maxAge + "です");
+        System.out.println("最高年齢は" + maxAge + "歳です");
         int averageAge = totalAge / n;
-        System.out.println("平均年齢は" + averageAge + "です");
+        System.out.println("平均年齢は" + averageAge + "歳です");
 
     }
 
@@ -35,18 +36,43 @@ public class Person {
         System.out.print("名字：");
         this.lastName = scanner.next();
 
-        System.out.print("年齢：");
-        this.age = scanner.nextInt();
+        while (true) {
+            try {
+                System.out.print("年齢：");
+                this.age = scanner.nextInt();
+                break;
+        } catch (InputMismatchException e) {
+                scanner.nextLine();
+                System.out.println("数値を入力してください");
+            }
+        }
         if (age > maxAge) {
             maxAge = age;
         }
         totalAge = totalAge + age;
 
-        System.out.print("身長(m)：");
-        height = scanner.nextDouble();
+        while (true) {
+            try {
+                System.out.print("身長(cm)：");
+                this.height = scanner.nextInt();
+                break;
+            } catch (InputMismatchException e) {
+                scanner.nextLine();
+                System.out.println("数値を入力してください");
+            }
+        }
 
-        System.out.print("体重(kg)：");
-        weight = scanner.nextDouble();
+        while (true) {
+            try {
+                System.out.print("体重(kg)：");
+                this.weight = scanner.nextDouble();
+                break;
+            } catch (InputMismatchException e) {
+                scanner.nextLine();
+                System.out.println("数値を入力してください");
+            }
+
+        }
 
         System.out.println("--------------------");
 
@@ -60,7 +86,7 @@ public class Person {
         } else {
             System.out.println("未成年者です");
         }
-        System.out.println("身長は" + height + "mです");
+        System.out.println("身長は" + Math.round(height) + "cmです");
         System.out.println("体重は" + weight + "kgです");
         System.out.println("BMIは" + Math.round(bmi()) + "です");
         if (bmi >= 18.5 && bmi <25) {
@@ -76,6 +102,6 @@ public class Person {
     }
 
     public double bmi () {
-        return bmi = weight/height/height;
+        return bmi = weight/(height/100)/(height/100);
     }
 }
