@@ -6,7 +6,7 @@ public class Person {
     private String lastName;
     private String fullName;
     private int age;
-    private double height;
+    private int height;
     private double weight;
     private double bmi;
 
@@ -59,6 +59,20 @@ public class Person {
             } catch (InputMismatchException e) {
                 scanner.nextLine();
                 System.out.println("数値を入力してください");
+            }
+        }
+
+        while (true) {
+            if (this.height > 0 && this.height < 1000) {
+                break;
+            } else if (this.height > 1000) {
+                System.out.println("3桁で入力してください");
+                System.out.print("身長(cm)：");
+                this.height = scanner.nextInt();
+            } else {
+                System.out.println("マイナスになっています");
+                System.out.print("身長(cm)：");
+                this.height = scanner.nextInt();
             }
         }
 
